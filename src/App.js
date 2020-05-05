@@ -1,23 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+import Box from './components/box';
+import { Canvas } from 'react-three-fiber'
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          3D object viewer
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Canvas>
+          <ambientLight />
+          <pointLight position={[10, 10, 10]} />
+          <Box position={[-5, 0, -2]} />
+          <Box position={[5, 0, -3]} />
+        </Canvas>
       </header>
     </div>
   );
