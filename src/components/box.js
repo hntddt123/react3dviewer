@@ -14,17 +14,13 @@ export default function Box(props) {
 
   return (
     <mesh
-      visible
-      userData={{ test: 'hello' }}
-      position={[10, 2, -3]}
-      rotation={[0, 0, 0]}
       {...props}
       ref={mesh}
-      scale={active ? [5, 5, 5] : [4, 4, 4]}
+      scale={active ? [2, 2, 2] : [1, 1, 1]}
       onClick={e => setActive(!active)}
       onPointerOver={e => setHover(true)}
       onPointerOut={e => setHover(false)}>
-      <sphereGeometry attach="geometry" args={[1, 1, 1]} />
+      <boxGeometry attach="geometry" args={[1, 1, 1]} />
       <meshStandardMaterial attach="material" color={hovered ? 'green' : 'orange'} />
     </mesh>
   )
