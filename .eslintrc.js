@@ -31,7 +31,7 @@ module.exports = {
     'react/prop-types': 'off',
     'comma-dangle': 'off',
     'linebreak-style': 'warn',
-    'object-curly-newline': 'warn',
+    'object-curly-newline': 'off',
     'default-case': 'off',
     'object-shorthand': 'off',
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],

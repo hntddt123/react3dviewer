@@ -1,9 +1,17 @@
 import React, { useRef, useState } from 'react';
-import { useFrame } from 'react-three-fiber';
+import { useFrame, useLoader } from 'react-three-fiber';
+import { TextureLoader } from 'three/src/loaders/TextureLoader';
 
 export default function Box(props) {
   // This reference will give us direct access to the mesh
   const mesh = useRef();
+  const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(TextureLoader, [
+    'textures/PavingStones092_1K-JPG/PavingStones092_1K_Color.jpg',
+    'textures/PavingStones092_1K-JPG/PavingStones092_1K_Displacement.jpg',
+    'textures/PavingStones092_1K-JPG/PavingStones092_1K_NormalGL.jpg',
+    'textures/PavingStones092_1K-JPG/PavingStones092_1K_Roughness.jpg',
+    'textures/PavingStones092_1K-JPG/PavingStones092_1K_AmbientOcclusion.jpg',
+  ]);
 
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
@@ -22,7 +30,16 @@ export default function Box(props) {
       onPointerOut={(e) => setHover(false)}
     >
       <boxGeometry attach="geometry" args={[1, 1, 1]} />
-      <meshStandardMaterial attach="material" color={hovered ? 'green' : 'orange'} />
+      <meshStandardMaterial
+        map={colorMap}
+        displacementScale={0}
+        displacementMap={displacementMap}
+        normalMap={normalMap}
+        roughnessMap={roughnessMap}
+        aoMap={aoMap}
+        attach="material"
+        color={hovered ? 'green' : 'orange'}
+      />
     </mesh>
   );
 }
