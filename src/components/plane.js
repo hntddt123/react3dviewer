@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default function Plane({ ...props }) {
   return (
@@ -6,5 +6,5 @@ export default function Plane({ ...props }) {
       <planeGeometry attach="geometry" args={[20, 20, 1, 1]} />
       <meshStandardMaterial attach="material" color="#448844" />
     </mesh>
-  )
+  );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Canvas } from 'react-three-fiber'
+import { Canvas } from 'react-three-fiber';
 
 import './App.css';
 import Box from './components/box';
@@ -13,10 +13,10 @@ function App() {
         <h2>
           3D object viewer
         </h2>
-        <div style={{ width: 800, height: 500, backgroundColor: "black" }}>
+        <div style={{ width: 800, height: 500, backgroundColor: 'black' }}>
           <Canvas
             pixelRatio={window.devicePixelRatio}
-            camera={{ fov: 75, near: 0.1, far: 1000, position: [0, 1, 6] }}
+            camera={{ fov: 70, near: 0.2, far: 1000, position: [0, 1, 6] }}
           >
             <ambientLight intensity={0.2} />
             <pointLight position={[-1, 2, 2]} />
