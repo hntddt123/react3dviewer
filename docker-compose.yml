@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  3dviewer:
+    container_name: 3dviewer
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - 9000:3000
+    environment:
+      - GENERATE_SOURCEMAP=false 
