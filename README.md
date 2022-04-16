@@ -1,3 +1,10 @@
+## Docker commands to run image on docker
+Make sure you have [docker](https://www.docker.com/products/docker-desktop/)
+Pull the image ```docker-compose pull```
+To run container ```docker compose up -d```
+To stop container ```docker compose down```
+
+### React
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
