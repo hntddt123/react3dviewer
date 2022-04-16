@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from 'react-three-fiber';
-import { PointMaterial } from '@react-three/drei';
 
 function getRandomIntFrom(min, max) {
   return Math.random() * (max - min) + min;
@@ -62,7 +61,7 @@ export default function Stars({ pointCount }) {
         transparent
         attach="material"
         vertexColors
-        size={8}
+        size={4}
         sizeAttenuation={false}
       />
       <bufferGeometry attach="geometry">
