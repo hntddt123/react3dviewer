@@ -18,7 +18,7 @@ export default function Melon(props) {
   const [position, setPosition] = useState([0, 0, 0]);
 
   // Rotate mesh every frame, this is outside of React without overhead
-  useFrame(() => (mesh.current.rotation.y += 0.005));
+  useFrame(() => (mesh.current.rotation.x += 0.0025));
 
   return (
     <mesh
@@ -30,10 +30,10 @@ export default function Melon(props) {
       }}
       onPointerOver={(e) => {
         setHover(true);
-        setPosition([0, 2, 0]);
+        setPosition([0, 1, 0]);
         setTimeout(() => {
           setPosition([0, 0, 0]);
-        }, 1000);
+        }, 2000);
       }}
       onPointerOut={(e) => {
         setHover(false);
