@@ -4,7 +4,7 @@ import { MeshReflectorMaterial } from '@react-three/drei';
 export default function Plane(props) {
   return (
     <mesh {...props} receiveShadow>
-      <planeGeometry attach="geometry" args={[20, 20, 1, 1]} />
+      <planeGeometry attach="geometry" args={[100, 100, 1, 1]} />
       <MeshReflectorMaterial
         blur={[0, 0]} // Blur ground reflections (width, height), 0 skips blur
         mixBlur={1} // How much blur mixes with surface roughness (default = 1)
@@ -22,7 +22,9 @@ export default function Plane(props) {
       3 = distortion channel
       4 = lod channel (based on the roughness)
     */
-        reflectorOffset={0.2} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+        reflectorOffset={0.2}
+      // Offsets the virtual camera that projects the reflection.
+      // Useful when the reflective surface is some distance from the object's origin (default = 0)
       />
     </mesh>
   );
