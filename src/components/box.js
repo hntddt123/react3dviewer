@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { useFrame, useLoader } from 'react-three-fiber';
+import React, { useState } from 'react';
+import { useLoader } from 'react-three-fiber';
+import { useBox } from '@react-three/cannon';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 
 export default function Box(props) {
   // This reference will give us direct access to the mesh
-  const mesh = useRef();
+  const [meshRef] = useBox(() => ({ mass: 1, position: [0, 5, 0], linearDamping: 0.125, ...props }));
+
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(TextureLoader, [
     'textures/PavingStones092_1K-JPG/PavingStones092_1K_Color.jpg',
     'textures/PavingStones092_1K-JPG/PavingStones092_1K_Displacement.jpg',
@@ -17,19 +19,16 @@ export default function Box(props) {
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
 
-  // Rotate mesh every frame, this is outside of React without overhead
-  useFrame(() => {
-    mesh.current.rotation.y -= 0.005;
-  });
-
   return (
     <mesh
       {...props}
-      ref={mesh}
+      ref={meshRef}
       scale={active ? [2, 2, 2] : [1, 1, 1]}
       onClick={(e) => setActive(!active)}
       onPointerOver={(e) => setHover(true)}
       onPointerOut={(e) => setHover(false)}
+      castShadow
+      receiveShadow
     >
       <boxGeometry attach="geometry" args={[1, 1, 1]} />
       <meshStandardMaterial
