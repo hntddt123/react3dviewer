@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls } from '@react-three/drei';
+import { Physics } from '@react-three/cannon';
 
 import './App.css';
 import Box from './components/Box';
@@ -13,10 +14,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h2>
-          3D object viewer
-        </h2>
-        <div style={{ width: '95%', height: 500, backgroundColor: '#000000' }}>
+        <div style={{ width: '98%', height: '98%', position: 'absolute', backgroundColor: '#000000' }}>
           <Canvas
             shadows
             pixelRatio={window.devicePixelRatio}
@@ -24,12 +22,18 @@ function App() {
           >
             <Suspense fallback={null}>
               <ambientLight intensity={0.1} />
-              <pointLight position={[-2, 5, 0]} />
-              <Melon />
-              <Box position={[-4, 0, 0]} />
-              <Box position={[4, 0, 0]} />
+              <pointLight position={[-2, 5, 0]} castShadow />
+              <Physics
+                defaultContactMaterial={{ restitution: 0.7 }}
+              >
+                <Melon />
+                <Box position={[-4, 0, 0]} />
+                <Box position={[-4, 1, 0]} />
+                <Box position={[-4, 2, 0]} />
+                <Box position={[4, 0, 0]} />
+                <Plane rotation={[-0.5 * Math.PI, 0, 0]} position={[0, -1.5, 0]} />
+              </Physics>
               <Stars pointCount={700} />
-              <Plane rotation={[-0.5 * Math.PI, 0, 0]} position={[0, -1.5, 0]} />
               <OrbitControls makeDefault target={[0, 0, 0]} />
             </Suspense>
           </Canvas>

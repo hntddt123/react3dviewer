@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useFrame, useLoader } from 'react-three-fiber';
+import { Vector3 } from 'three';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
+import { useSphere } from '@react-three/cannon';
+import useWSADSpaceControls from '../hooks/useWSADSpaceControls';
 
 export default function Melon(props) {
   // This reference will give us direct access to the mesh
-  const mesh = useRef();
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(TextureLoader, [
     'textures/Fabric021_1K-JPG/Fabric021_1K_Color.jpg',
     'textures/Fabric021_1K-JPG/Fabric021_1K_Displacement.jpg',
@@ -17,13 +19,64 @@ export default function Melon(props) {
   const [active, setActive] = useState(false);
   const [position, setPosition] = useState([0, 0, 0]);
 
-  // Rotate mesh every frame, this is outside of React without overhead
-  useFrame(() => (mesh.current.rotation.x += 0.0025));
+  const [melonRef, api] = useSphere(() => ({
+    mass: 1,
+    position: position,
+    type: 'Dynamic',
+    linearDamping: 0.35,
+    angularDamping: 0.7,
+    ...props
+  }));
+
+  const { forward, backward, left, right, jump } = useWSADSpaceControls();
+
+  const velocity = useRef([0, 0, 0]);
+
+  useEffect(() => {
+    const unsubscribe = api.velocity.subscribe((v) => {
+      velocity.current = v;
+    });
+    return unsubscribe;
+  }, []);
+
+  useFrame(() => {
+    const direction = new Vector3();
+
+    const frontVector = new Vector3(
+      0,
+      0,
+      (backward ? 1 : 0) - (forward ? 1 : 0)
+    );
+
+    const sideVector = new Vector3(
+      (left ? 1 : 0) - (right ? 1 : 0),
+      0,
+      0
+    );
+
+    const upVector = new Vector3(
+      0,
+      (jump ? 6 : velocity.current[1]), // jump use 6 or use gravity
+      0
+    );
+
+    direction
+      .subVectors(frontVector, sideVector)
+      .normalize()
+      .multiplyScalar(6);
+
+    if (!forward && !backward && !left && !right && !jump) {
+      api.velocity.set(velocity.current[0], velocity.current[1], velocity.current[2]);
+    } else {
+      api.velocity.set(direction.x, upVector.y, direction.z);
+    }
+  });
 
   return (
     <mesh
       {...props}
-      ref={mesh}
+      castShadow
+      ref={melonRef}
       scale={active ? [2, 2, 2] : [1, 1, 1]}
       onClick={(e) => {
         setActive(!active);
