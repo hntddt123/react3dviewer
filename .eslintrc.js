@@ -26,7 +26,7 @@ module.exports = {
     'no-use-before-define': 'warn',
     'no-underscore-dangle': 'warn',
     'react/jsx-filename-extension': 'off',
-    'react/jsx-props-no-spreading': 'warn',
+    'react/jsx-props-no-spreading': 'off',
     'react/jsx-boolean-value': 'error',
     'react/prop-types': 'off',
     'comma-dangle': 'off',
