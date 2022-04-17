@@ -41,7 +41,6 @@ export default function Stars({ pointCount }) {
   const starsRef = useRef();
 
   const [positions] = useMemo(() => generateStars(pointCount), [pointCount]);
-  // console.group(positions, colors);
 
   useFrame(() => {
     starsRef.current.rotation.y += 0.00005;
