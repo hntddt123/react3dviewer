@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useRef, useMemo } from 'react';
-import { useFrame } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
 
 function getRandomIntFrom(min, max) {
   return Math.random() * (max - min) + min;
@@ -8,7 +8,6 @@ function getRandomIntFrom(min, max) {
 
 function generateStars(pointCount) {
   const positions = [];
-  const colors = [];
 
   for (let index = 0; index < pointCount; index++) {
     const x0 = getRandomIntFrom(-1, 1);
@@ -32,20 +31,17 @@ function generateStars(pointCount) {
       positions.push(x * 100);
       positions.push(y * 100);
       positions.push(z * 100);
-
-      colors.push(0.8);
-      colors.push(0.8);
-      colors.push(0.8);
     }
   }
 
-  return [new Float32Array(positions), new Float32Array(colors)];
+  return [new Float32Array(positions)];
 }
 
 export default function Stars({ pointCount }) {
   const starsRef = useRef();
 
-  const [positions, colors] = useMemo(() => generateStars(pointCount), [pointCount]);
+  const [positions] = useMemo(() => generateStars(pointCount), [pointCount]);
+  // console.group(positions, colors);
 
   useFrame(() => {
     starsRef.current.rotation.y += 0.00005;
@@ -60,22 +56,15 @@ export default function Stars({ pointCount }) {
       <pointsMaterial
         transparent
         attach="material"
-        vertexColors
+        color="orange"
         size={4}
         sizeAttenuation={false}
       />
       <bufferGeometry attach="geometry">
         <bufferAttribute
-          attachObject={['attributes', 'position']}
+          attach="attributes-position"
           count={positions.length / 3} // [0, 0, 0] 1 point
           array={positions}
-          itemSize={3}
-        />
-        <bufferAttribute
-          ref={starsRef}
-          attachObject={['attributes', 'color']}
-          count={colors.length / 3}
-          array={colors}
           itemSize={3}
         />
       </bufferGeometry>

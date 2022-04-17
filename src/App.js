@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Canvas } from 'react-three-fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { Physics } from '@react-three/cannon';
 
@@ -17,7 +17,6 @@ function App() {
         <div style={{ width: '98%', height: '98%', position: 'absolute', backgroundColor: '#000000' }}>
           <Canvas
             shadows
-            pixelRatio={window.devicePixelRatio}
             camera={{ fov: 70, near: 0.2, far: 1000, position: [0, 1, 5] }}
           >
             <Suspense fallback={null}>
