@@ -3,16 +3,28 @@ import { useFrame, useLoader } from '@react-three/fiber';
 import { Vector3 } from 'three';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { useSphere } from '@react-three/cannon';
+
 import useWSADSpaceControls from '../hooks/useWSADSpaceControls';
+import melonColor from '../../public/textures/Fabric021_1K-JPG/Fabric021_1K_Color.jpg';
+import melonDisplacement from '../../public/textures/Fabric021_1K-JPG/Fabric021_1K_Displacement.jpg';
+import melonNormal from '../../public/textures/Fabric021_1K-JPG/Fabric021_1K_NormalGL.jpg';
+import melonRoughness from '../../public/textures/Fabric021_1K-JPG/Fabric021_1K_Roughness.jpg';
+import melonOpacity from '../../public/textures/Fabric021_1K-JPG/Fabric021_1K_Opacity.jpg';
+
+console.log(melonColor);
+console.log(melonDisplacement);
+console.log(melonNormal);
+console.log(melonRoughness);
+console.log(melonOpacity);
 
 export default function Melon(props) {
   // This reference will give us direct access to the mesh
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(TextureLoader, [
-    'textures/Fabric021_1K-JPG/Fabric021_1K_Color.jpg',
-    'textures/Fabric021_1K-JPG/Fabric021_1K_Displacement.jpg',
-    'textures/Fabric021_1K-JPG/Fabric021_1K_NormalGL.jpg',
-    'textures/Fabric021_1K-JPG/Fabric021_1K_Roughness.jpg',
-    'textures/Fabric021_1K-JPG/Fabric021_1K_Opacity.jpg',
+    melonColor,
+    melonDisplacement,
+    melonNormal,
+    melonRoughness,
+    melonOpacity,
   ]);
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
