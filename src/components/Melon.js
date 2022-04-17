@@ -11,12 +11,6 @@ import melonNormal from '../../public/textures/Fabric021_1K-JPG/Fabric021_1K_Nor
 import melonRoughness from '../../public/textures/Fabric021_1K-JPG/Fabric021_1K_Roughness.jpg';
 import melonOpacity from '../../public/textures/Fabric021_1K-JPG/Fabric021_1K_Opacity.jpg';
 
-console.log(melonColor);
-console.log(melonDisplacement);
-console.log(melonNormal);
-console.log(melonRoughness);
-console.log(melonOpacity);
-
 export default function Melon(props) {
   // This reference will give us direct access to the mesh
   const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(TextureLoader, [
