@@ -1,6 +1,6 @@
 ## Docker commands to run image on docker
 Make sure you have [docker](https://www.docker.com/products/docker-desktop/)<br />
-Pull the image ```docker-compose pull```<br />
+Pull the image ```docker-compose pull hntddt1/react3dviewer```<br />
 To run container ```docker compose up -d```<br />
 To stop container ```docker compose down```
 
