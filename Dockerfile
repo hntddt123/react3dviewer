@@ -1,6 +1,6 @@
-# Test web app that returns the name of the host/pod/container servicing req
+# Stage 1
 # Linux x64
-FROM node:current-alpine
+FROM node:current-alpine AS build
 
 LABEL org.opencontainers.image.title="react3dviewer" \
       org.opencontainers.image.description="ReactThreeFiber Playground" \
@@ -17,7 +17,13 @@ WORKDIR /usr/src/app
 
 # Install dependencies from packages.json
 RUN npm install
+RUN npm run build
 
-# Port outside connects 9000:3000 in docker react default port is 3000
+# Stage 2
+FROM nginx:stable-alpine
+
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+
+# Port outside connects PUBLISHED PORT:EXPOSE PORT
 # Command for container to execute
-CMD ["npm", "run", "start"]
+CMD ["nginx", "-g", "daemon off;"]
